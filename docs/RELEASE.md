@@ -14,7 +14,7 @@ npm install -D tooldock-cli@^1.1.0
 
 ```bash
 npx tooldock-ext keygen               # 預設存到 ~/.tooldock/keys
-npx tooldock-ext keygen --out ./keys  # 指定資料夾
+npx tooldock-ext keygen --out ~/secure/tooldock-keys  # 指定資料夾（請放在專案資料夾以外）
 ```
 
 | 檔案 | 內容 |

@@ -650,7 +650,7 @@ npx tooldock-ext keygen
 | `tooldock-signing-key.pub` | 公鑰字串（`MCowBQYDK2VwAyEA` 開頭，60 個字元） | 可以公開，上架時填進索引 |
 
 - 資料夾裡已有金鑰時會拒絕覆寫；要重新產生請加 `--force`（舊金鑰會被覆蓋，請先確認）。
-- 指定其他資料夾：`npx tooldock-ext keygen --out ./keys`（請確認該資料夾不會被提交）。
+- 指定其他資料夾：`npx tooldock-ext keygen --out ~/secure/tooldock-keys`。**請放在專案資料夾以外**：放在專案裡時，私鑰 `.pem` 雖然一律不會被打包，但公鑰 `.pub` 會被打包進 `.tbx`，資料夾也可能被誤提交到 git。
 - **私鑰遺失**：只能產生新金鑰，並申請更換索引中的公鑰（〈13.1〉）。已安裝的使用者更新時會看到「金鑰已變更」的警告。
 - **私鑰外流**：立即依〈13.4〉處理。
 
