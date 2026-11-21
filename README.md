@@ -48,10 +48,11 @@ Get-FileHash .\ToolDock-<版本>-win-x64.exe -Algorithm SHA256
 
 ## 內建工具與商店
 
-安裝後就有三個內建工具：
+安裝後就有四個內建工具：
 
-- **資料表報表產生器**：讀取 CSV、Excel、JSON、SQLite，輸出 Excel 或 Word 報表。
+- **資料表報表產生器**：讀取 CSV、Excel、JSON、SQLite、Markdown 表格，輸出 Excel、Word、CSV 或 Markdown 報表。
 - **資料轉換工具**：JSON、YAML、CSV、Base64、時間戳、民國年、雜湊等轉換。
+- **Markdown 編輯器**：編輯與即時預覽，工具列插入常用語法，匯出 PDF 與 HTML（ToolDock 1.7.0 起）。
 - **網站監控**：定時檢查網站狀態與 SSL 憑證到期日。
 
 左側活動列的「商店」可以安裝更多擴充，例如「Oracle SQL 工具」。商店的擴充在安裝前，平台會先驗證 SHA-256 與發佈者的 Ed25519 簽章。
@@ -64,7 +65,15 @@ Get-FileHash .\ToolDock-<版本>-win-x64.exe -Algorithm SHA256
 npm create tooldock-extension@latest my-tool
 ```
 
-擴充開發者也需要先安裝 ToolDock。詳細說明請見 [create-tooldock-extension](https://www.npmjs.com/package/create-tooldock-extension)，範例專案可參考 [tooldock-ext-hello](https://github.com/tooldock-dev/tooldock-ext-hello) 和 [tooldock-ext-oracle-sql](https://github.com/tooldock-dev/tooldock-ext-oracle-sql)。
+擴充開發者也需要先安裝 ToolDock。從開發、測試、發佈到上架商店的完整步驟，請從 **[開發人員操作指南](docs/DEVELOPER_GUIDE.md)** 開始。
+
+| 文件 | 內容 |
+|---|---|
+| [開發人員操作指南](docs/DEVELOPER_GUIDE.md) | 環境安裝、建立專案、開發與除錯、測試、打包、簽章、發佈、申請上架、改版與下架 |
+| [API 參考指南](docs/EXTENSION_GUIDE.md) | manifest 欄位、後端 `ctx` 與畫面 `window.tooldock` API、函式庫、命令列參數 |
+| [所有開發者文件](docs/) | 資料交換、通知與執行鎖、PDF 輸出、發佈檔格式、商店架構、上架審查流程 |
+
+範例專案可參考 [tooldock-ext-hello](https://github.com/tooldock-dev/tooldock-ext-hello) 和 [tooldock-ext-oracle-sql](https://github.com/tooldock-dev/tooldock-ext-oracle-sql)。
 
 ## 回報問題
 
