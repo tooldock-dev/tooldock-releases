@@ -48,11 +48,12 @@ Get-FileHash .\ToolDock-<版本>-win-x64.exe -Algorithm SHA256
 
 ## 內建工具與商店
 
-安裝後就有四個內建工具：
+安裝後就有五個內建工具：
 
 - **資料表報表產生器**：讀取 CSV、Excel、JSON、SQLite、Markdown 表格，輸出 Excel、Word、CSV 或 Markdown 報表。
 - **資料轉換工具**：JSON、YAML、CSV、Base64、時間戳、民國年、雜湊等轉換。
 - **Markdown 編輯器**：編輯與即時預覽，工具列插入常用語法，匯出 PDF 與 HTML（ToolDock 1.7.0 起）。
+- **程式碼編輯器**：建立專案、瀏覽資料夾、語法高亮編輯，查看 Git 異動清單與差異比對（ToolDock 1.8.0 起）。
 - **網站監控**：定時檢查網站狀態與 SSL 憑證到期日。
 
 左側活動列的「商店」可以安裝更多擴充，例如「Oracle SQL 工具」。商店的擴充在安裝前，平台會先驗證 SHA-256 與發佈者的 Ed25519 簽章。
