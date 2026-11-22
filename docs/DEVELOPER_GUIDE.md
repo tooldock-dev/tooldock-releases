@@ -259,7 +259,7 @@ npm install -D tooldock-cli@latest tooldock-types@latest
 id 是擴充在整個商店中的**唯一識別碼**，上架後不能更改（換 id 等於新的擴充），請先想清楚：
 
 - 只能使用**小寫英數、`.` 與 `-`**，以英數開頭，最長 63 字。
-- 不要與內建擴充相同：`code-editor`、`data-converter`、`markdown-editor`、`site-monitor`、`table-report`。
+- 不要與內建擴充相同：`data-converter`、`site-monitor`、`table-report`。
 - 不要與商店上既有的擴充、知名產品名稱混淆（審核者會檢查）。可以加上公司或個人前綴，例如 `acme-invoice`。
 - 自訂資料交換格式、通知通道、指令 id 都會以它為前綴，越短越好。
 

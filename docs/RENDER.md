@@ -1,5 +1,7 @@
 # 文件輸出（Render）與 Markdown 編輯器規格書
 
+> 1.9.0 起，Markdown 編輯器改由擴充商店提供，原始碼移到 [tooldock-ext-markdown-editor](https://github.com/tooldock-dev/tooldock-ext-markdown-editor)；以下〈7〉的內容仍適用。
+>
 > 狀態：**已實作**：平台 **1.7.0**（`ctx.render.pdf`、文件樣式、資料交換的 mime 篩選）、Markdown 編輯器 1.0.0、報表產生器 1.2.0；報表產生器的 PDF 匯出（1.3.0）為**草案，決定已定案**。本文件定義平台的「HTML 轉 PDF」服務 `ctx.render`、共用的文件樣式、資料交換的 mime 篩選，以及第一批使用它們的內建擴充：新增的 **Markdown 編輯器**、**報表產生器** 1.2.0（Markdown 來源，**已實作**）與 1.3.0（PDF 匯出）。實作以本文件為準，若需變更請先修改本文件。
 
 ## 1. 目的與範圍
@@ -243,7 +245,7 @@ slot session 的協定處理依下表放行或擋下；`session.webRequest.onBef
 
 ## 7. Markdown 編輯器（`markdown-editor` 1.0.0）
 
-新增的內建擴充，放在 `extensions/markdown-editor`。
+新增的內建擴充，放在 `extensions/markdown-editor`（1.7.0～1.8.x）。1.9.0 起改由擴充商店提供，原始碼在 [tooldock-ext-markdown-editor](https://github.com/tooldock-dev/tooldock-ext-markdown-editor)。
 
 | manifest 項目 | 值 |
 |---|---|

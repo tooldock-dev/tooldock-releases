@@ -198,7 +198,7 @@ exports.importTable = async (ctx, pkg, info) => {
 |---|---|---|
 | `tooldock.sql` | 要在資料庫執行的 SQL 與參數，包含查詢 | 🛢 Oracle SQL 工具（商店，1.3.0 以上） |
 | `tooldock.table` | 表格資料 | 📊 報表產生器、🔁 資料轉換工具（轉成 CSV） |
-| `tooldock.text` | 文字、CSV、JSON、Markdown 等 | 🔁 資料轉換工具；`text/markdown` 交給 📝 Markdown 編輯器 |
+| `tooldock.text` | 文字、CSV、JSON、Markdown 等 | 🔁 資料轉換工具；`text/markdown` 交給 📝 Markdown 編輯器（商店擴充） |
 
 - 自訂格式必須以自己的擴充 id 開頭（例如 `my-tool.report`），`tooldock.*` 保留給平台；違反時平台忽略並記錄警告，`tooldock-ext validate` 會列為錯誤。
 - 標準格式的 TypeScript 型別在 `tooldock-types`（`SqlPayload`、`TablePayload`、`TextPayload`、`ImportHandler`…），JSON Schema 在 `tooldock-types/exchange/*.schema.json`。

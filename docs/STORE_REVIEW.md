@@ -260,7 +260,7 @@ grep -n "$KEY" extensions.json
 
 **id 是否混淆**
 
-- [ ] 不是內建擴充的 id：`code-editor`、`data-converter`、`markdown-editor`、`site-monitor`、`table-report`。
+- [ ] 不是內建擴充的 id：`data-converter`、`site-monitor`、`table-report`。
 - [ ] 與既有擴充沒有只差一兩個字元、單複數、連字號位置等容易混淆的差別。
 - [ ] 不是知名產品名稱，除非 repo 屬於該產品的擁有者。
 
