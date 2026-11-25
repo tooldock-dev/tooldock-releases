@@ -260,7 +260,7 @@ grep -n "$KEY" extensions.json
 
 **id 是否混淆**
 
-- [ ] 不是內建擴充的 id：`data-converter`、`site-monitor`、`table-report`。
+- [ ] 不是官方擴充（1.10.0 以前的內建擴充）的 id：`data-converter`、`site-monitor`、`table-report`；同一個發佈者（ToolDock）上架這些擴充本身除外。
 - [ ] 與既有擴充沒有只差一兩個字元、單複數、連字號位置等容易混淆的差別。
 - [ ] 不是知名產品名稱，除非 repo 屬於該產品的擁有者。
 

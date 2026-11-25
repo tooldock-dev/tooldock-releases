@@ -480,7 +480,7 @@ macOS 使用 ⌘，Windows、Linux 使用 Ctrl。平台選單已經佔用的組�
 | `packages/cli` | `validate` 檢查 `imports[].mimes` 的格式（`type/subtype` 或 `type/*`） |
 | `docs/EXCHANGE.md` | 已加入 `mimes` 的規則（〈7.1〉、〈8.1〉、〈12〉） |
 | `extensions/markdown-editor`（新增） | 〈7〉 |
-| `extensions/table-report` | 1.2.0：〈8.1〉（已完成，含 `npm test`）；1.3.0：〈8.2〉 |
+| `extensions/table-report`（1.10.0 起移到 tooldock-ext-table-report） | 1.2.0：〈8.1〉（已完成，含 `npm test`）；1.3.0：〈8.2〉 |
 | `docs/EXTENSION_GUIDE.md` | 新增「PDF 輸出」章節，連到本文件 |
 | `README.md`、`package.json` | 平台 1.7.0、功能說明 |
 

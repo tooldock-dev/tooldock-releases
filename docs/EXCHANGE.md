@@ -621,8 +621,8 @@ interface ImportResult {
 2. **工作台**：選擇器、預設接收端、狀態列取消、從檔案匯入（指令與拖放）。
 3. **標準格式**：`tooldock-types` 型別與 schema、CLI 驗證。
 4. **範例**：
-   - `data-converter` 接收 `tooldock.text`。
-   - `table-report` 接收 `tooldock.table`，並把報表分享成 `tooldock.table`。
+   - `data-converter` 接收 `tooldock.text`（1.10.0 起為商店擴充 tooldock-ext-data-converter）。
+   - `table-report` 接收 `tooldock.table`，並把報表分享成 `tooldock.table`（1.10.0 起為商店擴充 tooldock-ext-table-report）。
    - `tooldock.sql` 由商店的 Oracle SQL 工具（1.3.0）接收，完整實作〈6.8〉。最初以內建的「資料庫執行器」（SQLite）作為參考實作，後來改由 Oracle SQL 工具取代並移除。
 5. **商店與檔案關聯**：索引收錄、到商店尋找、`.tdx` 檔案關聯。
 

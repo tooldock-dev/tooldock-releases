@@ -105,6 +105,31 @@ ToolDock 1.3.0 起，沒有宣告 `onStartup`／`*` 的擴充屬於延遲載入�
 
 使用者可以在 `lifecycle.json` 的 `behavior` 調整：`deactivateOnViewClose`（預設 `true`）與 `extensionIdleTimeout`（毫秒，預設 `300000`；設為 `0` 關閉閒置回收）。
 
+### 背景分頁卸載（ToolDock 1.10.0 起）
+
+每個擴充畫面都跑在自己的 renderer 行程裡（每個 `tbx-ext://<id>` 是不同的 origin），一個畫面大約佔 80–100 MB，而且分頁切到背景後也不會釋放。畫面可以在 manifest 宣告允許平台卸載它：
+
+```jsonc
+"views": [{ "id": "myTool.main", "title": "我的工具", "discardWhenHidden": true }]
+```
+
+- 分頁在背景超過 `behavior.viewDiscardTimeout`（毫秒，預設 `600000` 即 10 分鐘；設為 `0` 關閉這個功能）後，平台會移除畫面的 iframe，分頁標題改成斜體。
+- 切換回這個分頁時，畫面會**重新載入**，`td.view.restored` 為 `true`。
+- 分頁仍然算開著：**後端不會因此被回收**，`ctx.ui.emit` 送出的事件在卸載期間會被丟棄，畫面重新載入時請向後端重新取得資料。
+- 預設是 `false`，因為畫面的記憶體狀態（表單、捲動位置、未儲存的內容）會在卸載時消失。只在畫面能從後端或 `td.view.getState()` 還原時才開啟。
+
+畫面端可以用 `window.tooldock.view` 配合（舊版平台沒有這個屬性，請先檢查）：
+
+```js
+const td = window.tooldock;
+if (td.view) {
+  if (td.view.restored) restore(await td.view.getState());     // 切回來時還原
+  td.view.setState({ tab: 'history', scrollTop: 120 });         // 只存在這個分頁的生命期內，上限約 1 MB
+  td.view.keepAlive(true);   // 有尚未儲存的內容、進行中的工作時暫時不要卸載
+  td.view.keepAlive(false);  // 存好之後解除
+}
+```
+
 ## 3. 後端 API（`ctx`）
 
 後端跑在獨立的 Node.js 程序，可以使用 Node 全部能力（`fs`、`child_process`、`fetch`、資料庫驅動…），也能 `require` 任何 npm 套件。
@@ -197,8 +222,8 @@ exports.importTable = async (ctx, pkg, info) => {
 | 標準格式 | 內容 | 接收端 |
 |---|---|---|
 | `tooldock.sql` | 要在資料庫執行的 SQL 與參數，包含查詢 | 🛢 Oracle SQL 工具（商店，1.3.0 以上） |
-| `tooldock.table` | 表格資料 | 📊 報表產生器、🔁 資料轉換工具（轉成 CSV） |
-| `tooldock.text` | 文字、CSV、JSON、Markdown 等 | 🔁 資料轉換工具；`text/markdown` 交給 📝 Markdown 編輯器（商店擴充） |
+| `tooldock.table` | 表格資料 | 📊 報表產生器、🔁 資料轉換工具（轉成 CSV）（商店擴充） |
+| `tooldock.text` | 文字、CSV、JSON、Markdown 等 | 🔁 資料轉換工具；`text/markdown` 交給 📝 Markdown 編輯器（都是商店擴充） |
 
 - 自訂格式必須以自己的擴充 id 開頭（例如 `my-tool.report`），`tooldock.*` 保留給平台；違反時平台忽略並記錄警告，`tooldock-ext validate` 會列為錯誤。
 - 標準格式的 TypeScript 型別在 `tooldock-types`（`SqlPayload`、`TablePayload`、`TextPayload`、`ImportHandler`…），JSON Schema 在 `tooldock-types/exchange/*.schema.json`。
@@ -318,6 +343,10 @@ exports.deliver = async (ctx, n, dest, info) => {
     const pkg = await td.exchange.create('tooldock.text', { mime: 'text/csv', text }, { title: '匯出結果' });
     const r = await td.exchange.share(pkg);
   }
+  if (td.view) {   // 背景分頁卸載（1.10.0 起，見〈2. Manifest〉的「背景分頁卸載」）
+    if (td.view.restored) restore(await td.view.getState());
+    td.view.setState(state); td.view.keepAlive(true);
+  }
   td.viewId; td.extensionId; td.escape(html);
 </script>
 ```
@@ -339,11 +368,14 @@ exports.deliver = async (ctx, n, dest, info) => {
 
 ### 範例：讓報表產生器支援 MySQL
 
+報表產生器的原始碼在 [tooldock-ext-table-report](https://github.com/tooldock-dev/tooldock-ext-table-report)（1.10.0 以前內建在平台）：
+
 ```bash
-cd extensions/table-report && npm install mysql2
+git clone https://github.com/tooldock-dev/tooldock-ext-table-report && cd tooldock-ext-table-report
+npm install && npm install mysql2
 ```
 
-接著新增 `backend/sources/mysql.js`，實作 `{ id, label, extensions, supportsQuery, listTables, read }`，再把它加進 `backend/sources/index.js` 的陣列。平台本身不需要任何改動。
+接著新增 `backend/sources/mysql.js`，實作 `{ id, label, extensions, supportsQuery, listTables, read }`，再把它加進 `backend/sources/index.js` 的陣列，用 `npm run dev` 試用。平台本身不需要任何改動。
 
 ## 6. 打包與發佈
 
